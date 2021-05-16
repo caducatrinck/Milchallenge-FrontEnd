@@ -69,6 +69,7 @@ export function CardHome() {
   const estilo = useEstilos();
 
   function ClickLogoff() {
+    localStorage.removeItem('token');
     history.push('/');
   }
 
