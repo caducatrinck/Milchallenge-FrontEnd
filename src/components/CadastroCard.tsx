@@ -61,7 +61,7 @@ export function CadastroCard() {
   const classes = useStyles();
 
   const { data, refetch } = useQuery(
-    'login',
+    'register',
     async () => {
       const response = await fetch(
         'https://mil-challenge.herokuapp.com/login/cadastro',
@@ -81,19 +81,12 @@ export function CadastroCard() {
     {
       refetchOnWindowFocus: false,
       enabled: false,
+      cacheTime: 0,
       onSuccess: () => {
         history.push('/login');
       },
     }
   );
-
-  const [passwordVisible, setPasswordVisible] = React.useState(false);
-
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
 
   const formik = useFormik({
     initialValues: {
@@ -150,11 +143,7 @@ export function CadastroCard() {
             REGISTRAR-SE
           </Button>
           {data && data.mensagem ? (
-            data.sucess ? (
-              <></>
-            ) : (
-              <div className={classes.erro}>{data.mensagem}</div>
-            )
+            <div className={classes.erro}>{data.mensagem}</div>
           ) : null}
         </div>
       </form>

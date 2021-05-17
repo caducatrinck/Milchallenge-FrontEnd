@@ -102,10 +102,14 @@ export function LoginCard() {
     {
       refetchOnWindowFocus: false,
       enabled: false,
+      cacheTime: 0,
     }
   );
 
   function onClickRegister() {
+    {
+      data && data.mensagem ? { data: null } : null;
+    }
     history.push('/cadastro');
   }
   function onSubmit() {
@@ -167,10 +171,7 @@ export function LoginCard() {
             Entrar
           </Button>
           {data && data.mensagem ? (
-            <div
-              className={data.sucess ? classes.sucess : classes.erro}>
-              {data.mensagem}
-            </div>
+            <div className={classes.erro}>{data.mensagem}</div>
           ) : null}
         </div>
       </form>
