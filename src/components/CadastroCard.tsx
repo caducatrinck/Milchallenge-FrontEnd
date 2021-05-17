@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
     erro: {
       fontSize: 12,
       color: 'red',
-      // paddingTop: 10,
+      paddingTop: 10,
     },
   })
 );
