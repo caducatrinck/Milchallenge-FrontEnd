@@ -15,11 +15,11 @@ import {
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { useHistory } from 'react-router-dom';
-import { useEstilos } from './Style/useEstilos';
 import clsx from 'clsx';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useQuery } from 'react-query';
+import { Input } from './Input';
 
 const registerSchema = Yup.object({
   email: Yup.string()
@@ -53,6 +53,12 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       color: 'black',
       borderRadius: '0px',
+      '&&&:before': {
+        borderBottom: 'none',
+      },
+      '&&:after': {
+        borderBottom: 'none',
+      },
     },
     inputSquare: {
       borderRadius: '0',
@@ -67,13 +73,41 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 45,
       paddingTop: 10,
     },
+    cardStyle: {
+      maxWidth: 360,
+      minWidth: 360,
+      maxHeight: 640,
+      minHeight: 640,
+
+      boxShadow: '12px 11px 25px -3px rgba(191,191,191,0.53)',
+    },
+    heading: {
+      color: '#219653',
+      paddingBottom: 10,
+    },
+    centerLogo: {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+    centerButton: {
+      paddingTop: '50px',
+      paddingBottom: '100px',
+      display: 'flex',
+      justifyContent: 'center',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    erro: {
+      fontSize: 12,
+      color: 'red',
+      // paddingTop: 10,
+    },
   })
 );
 
 export function CadastroCard() {
   let history = useHistory();
   const classes = useStyles();
-  const estilo = useEstilos();
 
   const { data, refetch } = useQuery(
     'login',
@@ -128,9 +162,9 @@ export function CadastroCard() {
   });
 
   return (
-    <Card className={estilo.cardStyle}>
+    <Card className={classes.cardStyle}>
       <CardContent>
-        <div className={estilo.centerLogo}>
+        <div className={classes.centerLogo}>
           <img
             src="/medsenior.png"
             alt="logo"
@@ -141,104 +175,37 @@ export function CadastroCard() {
         <Typography
           align="center"
           variant="h6"
-          className={estilo.heading}>
+          className={classes.heading}>
           Novo Registro
         </Typography>
         <form onSubmit={formik.handleSubmit}>
-          <FormControl
-            className={clsx(classes.padding, classes.textField)}
-            variant="filled">
-            <InputLabel
-              className={clsx(classes.padding, classes.inputSquare)}
-              htmlFor="email">
-              Email
-            </InputLabel>
-            <FilledInput
-              className={classes.textField}
-              id="email"
-              name="email"
-              onChange={formik.handleChange}
-              error={
-                formik.touched.email && Boolean(formik.errors.email)
-              }
-              type="email"
-            />
-          </FormControl>
-          {formik.errors.email ? (
-            <div className={estilo.erro}>{formik.errors.email}</div>
-          ) : null}
-          <FormControl
-            className={clsx(classes.padding, classes.textField)}
-            variant="filled">
-            <InputLabel
-              className={classes.padding}
-              htmlFor="password">
-              Senha
-            </InputLabel>
-            <FilledInput
-              className={classes.textField}
-              id="password"
-              type={passwordVisible ? 'text' : 'password'}
-              value={formik.values.password}
-              name="password"
-              onChange={formik.handleChange}
-              error={
-                formik.touched.password &&
-                Boolean(formik.errors.password)
-              }
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end">
-                    {passwordVisible ? (
-                      <Visibility />
-                    ) : (
-                      <VisibilityOff />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
-          {formik.errors.password ? (
-            <div className={estilo.erro}>
-              {formik.errors.password}
-            </div>
-          ) : null}
+          <Input
+            name="email"
+            onChange={formik.handleChange}
+            label="Email"
+            error={formik.errors.email}
+            touched={formik.touched.email}
+            type="email"
+          />
+          <Input
+            name="password"
+            onChange={formik.handleChange}
+            label="Senha"
+            error={formik.errors.password}
+            touched={formik.touched.password}
+            type="password"
+          />
+          <Input
+            name="anotherPassword"
+            onChange={formik.handleChange}
+            label="Confirmar Senha"
+            error={formik.errors.anotherPassword}
+            touched={formik.touched.anotherPassword}
+            type="password"
+            disableVisibilityButton
+          />
 
-          <div>
-            <FormControl
-              className={clsx(classes.padding, classes.textField)}
-              variant="filled">
-              <InputLabel
-                className={classes.padding}
-                htmlFor="filled-adornment-confirm-password">
-                Confirmar Senha
-              </InputLabel>
-              <FilledInput
-                className={classes.textField}
-                id="anotherPassword"
-                type={passwordVisible ? 'text' : 'password'}
-                value={formik.values.anotherPassword}
-                name="anotherPassword"
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.anotherPassword &&
-                  Boolean(formik.errors.anotherPassword)
-                }
-              />
-            </FormControl>
-            {formik.errors.anotherPassword ? (
-              <div className={estilo.erro}>
-                {formik.errors.anotherPassword}
-              </div>
-            ) : null}
-          </div>
-
-          <div className={estilo.centerButton}>
+          <div className={classes.centerButton}>
             <Button
               className={classes.enterButton}
               type="submit"
@@ -246,7 +213,7 @@ export function CadastroCard() {
               REGISTRAR-SE
             </Button>
             {data && data.mensagem ? (
-              <div className={estilo.erro}>{data.mensagem}</div>
+              <div className={classes.erro}>{data.mensagem}</div>
             ) : null}
           </div>
         </form>
