@@ -17,9 +17,10 @@ const registerSchema = Yup.object({
   email: Yup.string()
     .email('E-Mail inválido')
     .required('Digite o E-mail'),
-  password: Yup.string()
-    .required('Digite a senha')
-    .min(6, 'A Senha deve ter no mínimo 6 digitos'),
+  password: Yup.string().min(
+    6,
+    'A Senha deve ter no mínimo 6 digitos'
+  ),
   anotherPassword: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Senhas não conferem')
     .required('Confirme a Senha'),

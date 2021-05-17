@@ -17,9 +17,10 @@ const loginSchema = Yup.object({
   email: Yup.string()
     .email('E-Mail inválido')
     .required('Digite o E-mail'),
-  password: Yup.string()
-    .required('Digite a senha')
-    .min(6, 'A Senha deve ter no mínimo 6 digitos'),
+  password: Yup.string().min(
+    6,
+    'A Senha deve ter no mínimo 6 digitos'
+  ),
 });
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -60,6 +61,11 @@ const useStyles = makeStyles((theme: Theme) =>
     erro: {
       fontSize: 12,
       color: 'red',
+      paddingTop: 10,
+    },
+    sucess: {
+      fontSize: 12,
+      color: 'green',
       paddingTop: 10,
     },
   })
