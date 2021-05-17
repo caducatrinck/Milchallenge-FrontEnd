@@ -11,7 +11,7 @@ export const PrivateRoute: React.FC<RouteProps> = ({
     'authcheck',
     async () => {
       const response = await fetch(
-        'http://mil-challenge.herokuapp.com/login/auth',
+        'https://mil-challenge.herokuapp.com/login/auth',
         {
           headers: {
             'Content-Type': 'application/json',

@@ -89,7 +89,7 @@ export function LoginCard() {
     const { data, refetch } = useQuery(
         'login',
         async () => {
-            const response = await fetch('http://mil-challenge.herokuapp.com/login', {
+            const response = await fetch('https://mil-challenge.herokuapp.com/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

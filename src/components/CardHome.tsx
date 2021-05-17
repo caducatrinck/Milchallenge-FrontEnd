@@ -78,7 +78,7 @@ export function CardHome() {
         'homepage',
         async () => {
             const response = await fetch(
-                'http://mil-challenge.herokuapp.com/login/home',
+                'https://mil-challenge.herokuapp.com/login/home',
                 {
                     headers: {
                         'Content-Type': 'application/json',
