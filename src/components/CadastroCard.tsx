@@ -82,11 +82,11 @@ export function CadastroCard() {
       refetchOnWindowFocus: false,
       enabled: false,
       cacheTime: 0,
-      onSuccess: () => {
-        history.push('/login');
-      },
     }
   );
+  if (data && data.usuarioCriado) {
+    history.push('/login');
+  }
 
   const formik = useFormik({
     initialValues: {
