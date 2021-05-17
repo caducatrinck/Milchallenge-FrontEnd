@@ -92,6 +92,7 @@ export function LoginCard() {
         }
       );
       const credentials = await response.json();
+
       if (credentials.token) {
         localStorage.setItem('token', credentials.token);
         history.push('/home');
@@ -127,7 +128,7 @@ export function LoginCard() {
           align="center"
           variant="h6"
           className={classes.heading}>
-          Novo Registro
+          Entrar
         </Typography>
         <Input
           name="email"
@@ -166,7 +167,10 @@ export function LoginCard() {
             Entrar
           </Button>
           {data && data.mensagem ? (
-            <div className={classes.erro}>{data.mensagem}</div>
+            <div
+              className={data.sucess ? classes.sucess : classes.erro}>
+              {data.mensagem}
+            </div>
           ) : null}
         </div>
       </form>

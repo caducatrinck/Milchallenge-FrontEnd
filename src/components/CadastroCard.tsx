@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
@@ -81,18 +81,13 @@ export function CadastroCard() {
     {
       refetchOnWindowFocus: false,
       enabled: false,
+      onSuccess: () => {
+        history.push('/login');
+      },
     }
   );
 
   const [passwordVisible, setPasswordVisible] = React.useState(false);
-
-  if (data && data.usuarioCriado) {
-    history.push('/login');
-  }
-
-  const handleClickShowPassword = () => {
-    setPasswordVisible(!passwordVisible);
-  };
 
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -155,7 +150,11 @@ export function CadastroCard() {
             REGISTRAR-SE
           </Button>
           {data && data.mensagem ? (
-            <div className={classes.erro}>{data.mensagem}</div>
+            data.sucess ? (
+              <></>
+            ) : (
+              <div className={classes.erro}>{data.mensagem}</div>
+            )
           ) : null}
         </div>
       </form>
