@@ -1,25 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import {
   Button,
   createStyles,
-  FilledInput,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
   Theme,
   Typography,
 } from '@material-ui/core';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { useHistory } from 'react-router-dom';
-import clsx from 'clsx';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useQuery } from 'react-query';
 import { Input } from './Input';
+import { Card } from './Card';
 
 const registerSchema = Yup.object({
   email: Yup.string()
@@ -35,37 +27,6 @@ const registerSchema = Yup.object({
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    logo: {
-      width: 160,
-      paddingTop: 40,
-      paddingBottom: 50,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-
-    padding: {
-      paddingBottom: 11,
-      paddingTop: 11,
-    },
-
-    textField: {
-      width: '100%',
-      color: 'black',
-      borderRadius: '0px',
-      '&&&:before': {
-        borderBottom: 'none',
-      },
-      '&&:after': {
-        borderBottom: 'none',
-      },
-    },
-    inputSquare: {
-      borderRadius: '0',
-    },
-    textColor: {
-      color: 'black',
-    },
     enterButton: {
       backgroundColor: '#006631',
       color: 'white',
@@ -73,21 +34,10 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 45,
       paddingTop: 10,
     },
-    cardStyle: {
-      maxWidth: 360,
-      minWidth: 360,
-      maxHeight: 640,
-      minHeight: 640,
 
-      boxShadow: '12px 11px 25px -3px rgba(191,191,191,0.53)',
-    },
     heading: {
       color: '#219653',
       paddingBottom: 10,
-    },
-    centerLogo: {
-      display: 'flex',
-      justifyContent: 'center',
     },
     centerButton: {
       paddingTop: '50px',
@@ -162,62 +112,52 @@ export function CadastroCard() {
   });
 
   return (
-    <Card className={classes.cardStyle}>
-      <CardContent>
-        <div className={classes.centerLogo}>
-          <img
-            src="/medsenior.png"
-            alt="logo"
-            className={classes.logo}
-          />
+    <Card>
+      <Typography
+        align="center"
+        variant="h6"
+        className={classes.heading}>
+        Novo Registro
+      </Typography>
+      <form onSubmit={formik.handleSubmit}>
+        <Input
+          name="email"
+          onChange={formik.handleChange}
+          label="Email"
+          error={formik.errors.email}
+          touched={formik.touched.email}
+          type="email"
+        />
+        <Input
+          name="password"
+          onChange={formik.handleChange}
+          label="Senha"
+          error={formik.errors.password}
+          touched={formik.touched.password}
+          type="password"
+        />
+        <Input
+          name="anotherPassword"
+          onChange={formik.handleChange}
+          label="Confirmar Senha"
+          error={formik.errors.anotherPassword}
+          touched={formik.touched.anotherPassword}
+          type="password"
+          disableVisibilityButton
+        />
+
+        <div className={classes.centerButton}>
+          <Button
+            className={classes.enterButton}
+            type="submit"
+            variant="contained">
+            REGISTRAR-SE
+          </Button>
+          {data && data.mensagem ? (
+            <div className={classes.erro}>{data.mensagem}</div>
+          ) : null}
         </div>
-
-        <Typography
-          align="center"
-          variant="h6"
-          className={classes.heading}>
-          Novo Registro
-        </Typography>
-        <form onSubmit={formik.handleSubmit}>
-          <Input
-            name="email"
-            onChange={formik.handleChange}
-            label="Email"
-            error={formik.errors.email}
-            touched={formik.touched.email}
-            type="email"
-          />
-          <Input
-            name="password"
-            onChange={formik.handleChange}
-            label="Senha"
-            error={formik.errors.password}
-            touched={formik.touched.password}
-            type="password"
-          />
-          <Input
-            name="anotherPassword"
-            onChange={formik.handleChange}
-            label="Confirmar Senha"
-            error={formik.errors.anotherPassword}
-            touched={formik.touched.anotherPassword}
-            type="password"
-            disableVisibilityButton
-          />
-
-          <div className={classes.centerButton}>
-            <Button
-              className={classes.enterButton}
-              type="submit"
-              variant="contained">
-              REGISTRAR-SE
-            </Button>
-            {data && data.mensagem ? (
-              <div className={classes.erro}>{data.mensagem}</div>
-            ) : null}
-          </div>
-        </form>
-      </CardContent>
+      </form>
     </Card>
   );
 }
