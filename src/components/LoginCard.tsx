@@ -79,7 +79,7 @@ export function LoginCard() {
     'login',
     async () => {
       const response = await fetch(
-        'https://mil-challenge.herokuapp.com/login',
+        'https://login-catrinck.herokuapp.com/login',
         {
           method: 'POST',
           headers: {

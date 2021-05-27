@@ -64,7 +64,7 @@ export function CadastroCard() {
     'register',
     async () => {
       const response = await fetch(
-        'https://mil-challenge.herokuapp.com/login/cadastro',
+        'https://login-catrinck.herokuapp.com/login/cadastro',
         {
           method: 'POST',
           headers: {
