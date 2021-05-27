@@ -18,9 +18,9 @@ const useStyles = makeStyles((theme: Theme) =>
       boxShadow: '12px 11px 25px -3px rgba(191,191,191,0.53)',
     },
     logo: {
-      width: 160,
-      paddingTop: 40,
-      paddingBottom: 50,
+      width: 130,
+      paddingTop: 20,
+      paddingBottom: 20,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -40,7 +40,7 @@ export const Card: React.FC = ({ children }) => {
       <CardContent>
         <div className={classes.centerLogo}>
           <img
-            src="/medsenior.png"
+            src="/greenlogo.svg"
             alt="logo"
             className={classes.logo}
           />
